@@ -19,6 +19,7 @@ module.exports = function netjet(options) {
     images: true,
     scripts: true,
     styles: true,
+    encode: true,
     cache: {}
   });
 
@@ -52,7 +53,9 @@ module.exports = function netjet(options) {
           var asType = entry[1];
           var addBaseHref = baseTag !== undefined && !(new RegExp('^([a-z]+://|/)', 'i')).test(url);
 
-          appendHeader('Link', '<' + (addBaseHref ? baseTag[0] : '') + encodeRFC5987(unescape(url)) + '>; rel=preload; as=' + asType);
+          url = options.encode ? encodeRFC5987(unescape(url)) : url;
+
+          appendHeader('Link', '<' + (addBaseHref ? baseTag[0] : '') + url + '>; rel=preload; as=' + asType);
         });
     }
 
