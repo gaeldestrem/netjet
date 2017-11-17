@@ -53,7 +53,7 @@ module.exports = function netjet(options) {
           var asType = entry[1];
           var addBaseHref = baseTag !== undefined && !(new RegExp('^([a-z]+://|/)', 'i')).test(url);
 
-          url = options.encode ? encodeRFC5987(unescape(url)) : url;
+          url = options.encode ? encodeRFC5987(unescape(url)) : unescape(url);
 
           appendHeader('Link', '<' + (addBaseHref ? baseTag[0] : '') + url + '>; rel=preload; as=' + asType);
         });
